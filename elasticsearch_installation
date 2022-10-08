@@ -1,0 +1,249 @@
+10:29AM @Bharath ~ curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic.gpg 
+[sudo] password for hackthebox: 
+10:29AM @Bharath ~ 
+10:29AM @Bharath ~ echo "deb [signed-by=/usr/share/keyrings/elastic.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list 
+deb [signed-by=/usr/share/keyrings/elastic.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main
+10:29AM @Bharath ~ 
+10:29AM @Bharath ~ sudo apt update            
+Get:1 https://artifacts.elastic.co/packages/7.x/apt stable InRelease [13.7 kB]
+Get:2 https://download.docker.com/linux/ubuntu jammy InRelease [48.9 kB]       
+.
+.
+.
+
+10:30AM @Bharath ~ sudo apt install elasticsearch
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  bridge-utils chromium-codecs-ffmpeg-extra gstreamer1.0-vaapi libgstreamer-plugins-bad1.0-0 libva-wayland2 python3-gunicorn ubuntu-fan
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  elasticsearch
+0 upgraded, 1 newly installed, 0 to remove and 167 not upgraded.
+Need to get 308 MB of archives.
+After this operation, 512 MB of additional disk space will be used.
+Get:1 https://artifacts.elastic.co/packages/7.x/apt stable/main amd64 elasticsearch amd64 7.17.6 [308 MB]
+Ign:1 https://artifacts.elastic.co/packages/7.x/apt stable/main amd64 elasticsearch amd64 7.17.6                                                                                       
+Get:1 https://artifacts.elastic.co/packages/7.x/apt stable/main amd64 elasticsearch amd64 7.17.6 [308 MB]                                                                              
+Fetched 127 MB in 1min 5s (1,936 kB/s)                                                                                                                                                 
+Selecting previously unselected package elasticsearch.
+(Reading database ... 248091 files and directories currently installed.)
+Preparing to unpack .../elasticsearch_7.17.6_amd64.deb ...
+Creating elasticsearch group... OK
+Creating elasticsearch user... OK
+Unpacking elasticsearch (7.17.6) ...
+Setting up elasticsearch (7.17.6) ...
+### NOT starting on installation, please execute the following statements to configure elasticsearch service to start automatically using systemd
+ sudo systemctl daemon-reload
+ sudo systemctl enable elasticsearch.service
+### You can start elasticsearch service by executing
+ sudo systemctl start elasticsearch.service
+Created elasticsearch keystore in /etc/elasticsearch/elasticsearch.keystore
+10:32AM @Bharath ~ 
+
+
+
+
+10:34AM @Bharath ~ sudo vi /etc/elasticsearch/elasticsearch.yml 
+10:35AM @Bharath ~ 
+10:35AM @Bharath ~ 
+10:35AM @Bharath ~ 
+10:35AM @Bharath ~ sudo systemctl start elasticsearch           
+10:36AM @Bharath ~ 
+10:36AM @Bharath ~ 
+10:36AM @Bharath ~ sudo systemctl enable elasticsearch
+Synchronizing state of elasticsearch.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable elasticsearch
+Created symlink /etc/systemd/system/multi-user.target.wants/elasticsearch.service → /lib/systemd/system/elasticsearch.service.
+10:36AM @Bharath ~ 
+10:36AM @Bharath ~ 
+10:36AM @Bharath ~ 
+10:36AM @Bharath ~ curl -X GET 'http://localhost:9200' 
+{
+  "name" : "hackthebox-VirtualBox",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "B37j2TwdSnSD-Is2kgHa5A",
+  "version" : {
+    "number" : "7.17.6",
+    "build_flavor" : "default",
+    "build_type" : "deb",
+    "build_hash" : "f65e9d338dc1d07b642e14a27f338990148ee5b6",
+    "build_date" : "2022-08-23T11:08:48.893373482Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.11.1",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+10:36AM @Bharath ~ 
+
+
+
+
+
+10:40AM @Bharath ~ pip3 install elasticsearch
+Defaulting to user installation because normal site-packages is not writeable
+Collecting elasticsearch
+  Downloading elasticsearch-8.4.2-py3-none-any.whl (384 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 384.6/384.6 KB 5.8 MB/s eta 0:00:00
+Collecting elastic-transport<9,>=8
+  Downloading elastic_transport-8.4.0-py3-none-any.whl (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 KB 7.7 MB/s eta 0:00:00
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from elastic-transport<9,>=8->elasticsearch) (2020.6.20)
+Requirement already satisfied: urllib3<2,>=1.26.2 in /usr/lib/python3/dist-packages (from elastic-transport<9,>=8->elasticsearch) (1.26.5)
+Installing collected packages: elastic-transport, elasticsearch
+Successfully installed elastic-transport-8.4.0 elasticsearch-8.4.2
+10:40AM @Bharath ~ 
+10:40AM @Bharath ~ 
+
+
+
+11:12AM @Bharath ~ sudo apt install kibana 
+[sudo] password for hackthebox: 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  bridge-utils chromium-codecs-ffmpeg-extra gstreamer1.0-vaapi libgstreamer-plugins-bad1.0-0
+  libva-wayland2 python3-gunicorn ubuntu-fan
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  kibana
+0 upgraded, 1 newly installed, 0 to remove and 167 not upgraded.
+Need to get 267 MB of archives.
+After this operation, 679 MB of additional disk space will be used.
+Get:1 https://artifacts.elastic.co/packages/7.x/apt stable/main amd64 kibana amd64 7.17.6 [267 MB]
+Fetched 267 MB in 12s (21.8 MB/s)                                                                    
+Selecting previously unselected package kibana.
+(Reading database ... 249186 files and directories currently installed.)
+Preparing to unpack .../kibana_7.17.6_amd64.deb ...
+Unpacking kibana (7.17.6) ...
+Setting up kibana (7.17.6) ...
+Creating kibana group... OK
+Creating kibana user... OK
+Created Kibana keystore in /etc/kibana/kibana.keystore
+11:13AM @Bharath ~ 
+11:14AM @Bharath ~ 
+11:14AM @Bharath ~ sudo systemctl enable kibana       
+Synchronizing state of kibana.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable kibana
+Created symlink /etc/systemd/system/multi-user.target.wants/kibana.service → /etc/systemd/system/kibana.service.
+11:14AM @Bharath ~ 
+11:14AM @Bharath ~ 
+11:14AM @Bharath ~ sudo systemctl start kibana   
+
+
+ 9:14AM @Bharath ~ pip3 install flask_cors   
+Defaulting to user installation because normal site-packages is not writeable
+Collecting flask_cors
+  Downloading Flask_Cors-3.0.10-py2.py3-none-any.whl (14 kB)
+Requirement already satisfied: Six in /usr/lib/python3/dist-packages (from flask_cors) (1.16.0)
+Requirement already satisfied: Flask>=0.9 in /home/hackthebox/.local/lib/python3.10/site-packages (from flask_cors) (2.1.3)
+Requirement already satisfied: click>=8.0 in /usr/lib/python3/dist-packages (from Flask>=0.9->flask_cors) (8.0.3)
+Requirement already satisfied: Jinja2>=3.0 in /home/hackthebox/.local/lib/python3.10/site-packages (from Flask>=0.9->flask_cors) (3.1.2)
+Requirement already satisfied: itsdangerous>=2.0 in /home/hackthebox/.local/lib/python3.10/site-packages (from Flask>=0.9->flask_cors) (2.1.2)
+Requirement already satisfied: Werkzeug>=2.0 in /home/hackthebox/.local/lib/python3.10/site-packages (from Flask>=0.9->flask_cors) (2.2.1)
+Requirement already satisfied: MarkupSafe>=2.0 in /home/hackthebox/.local/lib/python3.10/site-packages (from Jinja2>=3.0->Flask>=0.9->flask_cors) (2.1.1)
+Installing collected packages: flask_cors
+Successfully installed flask_cors-3.0.10
+ 9:14AM @Bharath ~ 
+
+
+
+GET cars/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+
+
+
+GET cars/_search
+{
+  "size": 10,
+  "query": {
+    "bool": {
+      "must": [
+          {
+            "span_near": {
+              "clauses": [
+                {
+                  "span_multi" : {
+                    "match": {
+                      "fuzzy": {
+                        "name": {
+                          "value": "maruti",
+                          "fuzziness": "AUTO"
+                        }
+                      }
+                    }
+                  }
+                }
+              ] 
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+GET cars/_search
+{
+  "size": 10,
+  "query": {
+    "bool": {
+      "must": [
+          {
+            "span_near": {
+              "clauses": [
+                {
+                  "span_multi" : {
+                    "match": {
+                      "fuzzy": {
+                        "name": {
+                          "value": "maruti",
+                          "fuzziness": "AUTO"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "span_multi" : {
+                    "match": {
+                      "fuzzy": {
+                        "name": {
+                          "value": "800",
+                          "fuzziness": "AUTO"
+                        }
+                      }
+                    }
+                  }
+                }
+              ] 
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+
+
+
+http://localhost:5601/app/dev_tools#/console
